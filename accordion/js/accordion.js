@@ -69,13 +69,3 @@ angular.module('accordion',[])
   
 })
 
-    /* '<div class="tab" ng-class="{active:isOpened}" ng-click=toggleTab() ng-style="backgroundcolor">'
-     +  ' <div class="innertab">'
-     +      ' <div class="titlebar">'
-     +           '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'
-     +          ' <p>{{itemTitle}}</p>'
-     +           '<span class="lineright" ng-class="{slideInRight:isOpened,slideOutRight:isClosed}"></span>'
-     +          ' <div class="text" ng-transclude></div>'
-     +       '</div>'
-     +  ' </div>'
-     + '</div>'*/
