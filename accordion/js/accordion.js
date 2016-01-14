@@ -4,17 +4,29 @@ angular.module('accordion',[])
   $scope.size = {"width":$scope.width,
                  "height":$scope.height};
   this.openTab = function(tabToOpen){
+ 
+  var closedTabHeight = 100 / (tabs.length + 2);
+  var openTabHeight   = closedTabHeight * 3;
+  
+    console.log(closedTabHeight);
+      console.log(openTabHeight);
+      
      angular.forEach(tabs,function(tab){
        if(tab.isOpened){
          tab.isClosed=true;
          tab.isOpened = false;  
+         tab.tabStyle = {"background-color":tab.color, "height":closedTabHeight + '%'}; 
        }
      });
      tabToOpen.isOpened=true;
+     tabToOpen.tabStyle ={"background-color":tabToOpen.color,"height":openTabHeight + '%'}; 
      tabToOpen.isClosed=false;
   };
   
    this.addTabs = function(tab) {
+            if(tab.isOpened){
+                tab.tabStyle ={"background-color":tab.color,"height":30 + '%'}; 
+            }
             tabs.push(tab);   
    } 
 }]) 
@@ -43,7 +55,8 @@ angular.module('accordion',[])
     transclude:true,
     link: function(scope, element,attrs, accordionController){
       scope.isOpened = (scope.initiallyOpen) ?true:false;
-      scope.backgroundcolor = {"background-color":scope.color};
+  
+      scope.tabStyle = {"background-color":scope.color};
      
       accordionController.addTabs(scope);
       
@@ -54,7 +67,7 @@ angular.module('accordion',[])
       }
       
     },
-    template: '<div class="tab" ng-class="{active:isOpened}" ng-click=toggleTab() ng-style="backgroundcolor">'
+    template: '<div class="tab" ng-class="{active:isOpened}" ng-click=toggleTab() ng-style="tabStyle">'
      +  ' <div class="innertab">'
      +      ' <div class="titlebar">'
      +           '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'

@@ -63,6 +63,7 @@ Pick the tab you want to be opened initially by setting the initially-opened tag
 * Height for tabs has now to be set manually in css everytime you add/delete tabs, this should be done automatically
 * Contenttab inside the accordion-tab
 * Use tab.html template instead of setting the html in the directive?
+* Someday: Angular2 of course!
 
 
 

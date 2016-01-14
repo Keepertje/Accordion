@@ -67,12 +67,8 @@ body {
 }
 .box .tab {
   width: 100%;
-  height: 17%;
   position: relative;
   transition: 0.4s ease-in-out;
-}
-.box .tab.active {
-  height: 51%;
 }
 .titlebar {
   text-align: center;
