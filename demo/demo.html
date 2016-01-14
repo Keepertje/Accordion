@@ -1,0 +1,54 @@
+<html ng-app="app">
+
+<head>
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../accordion/css/style.css">
+    <!-- endinject -->
+
+</head>
+
+<body>
+    <div class="left">
+        <div class="inner">
+            <h1> Have fun </h1>
+            <h2> No really, have fun!</h1>
+		<a href="http://codepen.io/Keepertje/pen/MKvJLR" _target="blank">View on codepen</a></br>
+      <a href="http://codepen.io/Keepertje/pen/BjZqoy" _target="blank"> 
+        Click here for a codepen jQuery version</a>
+		
+		
+    </div>
+  </div>
+  <div class="right">
+    <accordion width="340px" height="400px">
+      <!-- TODO: scale tabs based on the accordion size -->
+    <accordion-tab item-title="Some stuff"  initially-open="true"
+                   color="#FFFFFF">
+      <p>Kan hier tekst in?</p> 
+
+    </accordion-tab>
+      <accordion-tab item-title="Some stuff"
+                     color="#B2EBF2">
+      <p>Kan hier tekst in?</p> 
+      <!-- TODO: accordionContent ? -->
+    </accordion-tab>
+      <accordion-tab item-title="Some stuff"
+                     color="#00BCD4"> 
+        <!-- TODO: accordionContent ? -->
+        <p>Kan hier tekst in?</p> 
+    </accordion-tab>
+      <accordion-tab item-title="Some stuff"
+                     color="#455A64">
+        <p>Kan hier tekst in?</p> 
+    </accordion-tab>
+    </accordion>   
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
+  <script src="./scripts/app.js"></script>
+  <script type="text/javascript" src="../accordion/js/accordion.js"></script>
+</body>
+
+</html>
