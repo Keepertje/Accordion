@@ -48,11 +48,12 @@ Set the size of the accordion with width and height tags (default width="340px" 
 
 You can set the color of the tabs with the color tag.
 You can set the title of a tab with the item-title tag.
-``` html
+```html
       <accordion-tab item-title="Some stuff"
                      color="#B2EBF2">
      </accordion-tab>
-     ```
+```
+
 Pick the tab you want to be opened initially by setting the initially-opened tag on true
 ```html
   <accordion-tab item-title="Some stuff"  initially-open="true">
