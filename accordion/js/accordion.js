@@ -1,10 +1,10 @@
 "use strict";
 
 angular.module('accordion',[])
-.controller('accordionController',['$scope', function($scope){
+.controller('accordionController', function(){
   var tabs = [];
-  $scope.size = {"width":$scope.width,
-                 "height":$scope.height};                  
+  this.size = {"width":this.width,
+                 "height":this.height};                  
   this.openTab = function(tabToOpen){
         let closedTabHeight = 100 / (tabs.length + 2);
         let openTabHeight   = closedTabHeight * 3;
@@ -23,7 +23,7 @@ angular.module('accordion',[])
   
    this.addTabs = function(tab) {
        
-         let closedTabHeight = 100 / (($scope.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
+         let closedTabHeight = 100 / ((this.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
          console.log('closedheight: ' + closedTabHeight);
         let openTabHeight   = closedTabHeight * 3;
          console.log('openTabHeight: ' + openTabHeight);
@@ -36,18 +36,21 @@ angular.module('accordion',[])
             console.log('addtab ' + tabs.length);
             tabs.push(tab);   
    } 
-}]) 
+}) 
 .directive('accordion',function(){
   return{ 
-   restrict:'EA',
-    scope: {
-            width:'@',
+    restrict:'EA',
+    bindToController: {
+     width:'@',
             height:'@',
-            totalTabs:'@'
+            totalTabs:'@'},
+    scope: {
+           
            },
     transclude:true, 
     controller:'accordionController',
-    template: '<div class="box" ng-style=size ng-transclude> </div>'
+    controllerAs: 'accordionCtrl',
+    template: '<div class="box" ng-style=accordionCtrl.size ng-transclude> </div>'
    }
 })
 .directive('accordionTab', function() {
@@ -55,32 +58,32 @@ angular.module('accordion',[])
     restrict: 'EA',
     require:'^accordion',
     replace:true,
-    scope:{
-    itemTitle: '@',
-    initiallyOpen:'=',
-    color:'@'
+    scope:{  
   },
-    transclude:true,
-    link: function(scope, element,attrs, accordionController){
-      scope.isOpened = (scope.initiallyOpen) ?true:false;
-  
-      scope.tabStyle = {"background-color":scope.color};
-     
-      accordionController.addTabs(scope);
-      
-      scope.toggleTab = function(){
-        if(!scope.isOpened){
-          accordionController.openTab(this);
+    bindToController:{
+    itemTitle: '@',
+        initiallyOpen:'=',
+        color:'@'},
+    controller: function(){
+        this.isOpened = (this.initiallyOpen) ?true:false;
+        this.tabStyle = {"background-color":this.color};
+        var accordionController = controllers[0];
+        accordionController.addTabs(this);
+        this.toggleTab = function(){
+            if(!this.isOpened){
+            accordionController.openTab(this);
+            }
         }
-      }
-      
     },
+    controllerAs: 'tabCtrl',
+    transclude:true,   
+    
     template: '<div class="tab" ng-class="{active:isOpened}" ng-click=toggleTab() ng-style="tabStyle">'
-     +  ' <div class="innertab">'
-     +      ' <div class="titlebar">'
-     +           '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'
-     +          ' <p>{{itemTitle}}</p>'
-     +           '<span class="lineright" ng-class="{slideInRight:isOpened,slideOutRight:isClosed}"></span>'
+     +         ' <div class="innertab">'
+     +           ' <div class="titlebar">'
+     +              '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'
+     +              '<p>{{itemTitle}}</p>'
+     +              '<span class="lineright" ng-class="{slideInRight:isOpened,slideOutRight:isClosed}"></span>'
      +          ' <div class="text" ng-transclude></div>'
      +       '</div>'
      +  ' </div>'
