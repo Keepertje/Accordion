@@ -54,6 +54,18 @@ Set the number of tabs with the total-tabs tag. (shouldn't be necessary in the f
                      color="#B2EBF2">
      </accordion-tab>
 ```
+
+Add text with the tab-content:
+
+```html
+ <accordion-tab item-title="Some stuff"
+                     color="#B2EBF2">
+      <tab-content>
+         <!--add your text here-->
+      </tab-content>
+   </accordion-tab>
+```
+
 ## Options
 
 Set the size of the accordion with width and height tags (default width="340px" height="400px")
@@ -75,7 +87,6 @@ Pick the tab you want to be opened initially by setting the initially-opened tag
  ```
 ## TODO
 * Height for tabs has now to be set manually in css everytime you add/delete tabs, this should be done automatically
-* Contenttab inside the accordion-tab
 * Use tab.html template instead of setting the html in the directive?
 * Someday: Angular2 of course!
 

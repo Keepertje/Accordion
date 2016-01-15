@@ -74,6 +74,7 @@ body {
   text-align: center;
   padding-top: 2%;
   margin-right: 0%;
+  font-size: 14;
 }
 .titlebar .lineleft,
 .titlebar .lineright {
@@ -90,8 +91,7 @@ body {
   transform: translateX(100%);
 }
 h3,
-.innertab,
-.tabcontent {
+.innertab {
   color: black;
   letter-spacing: 3px;
   font-size: 12px;
@@ -105,13 +105,18 @@ h3,
 .tab:hover {
   box-shadow: 0 5px 15px 5px #000000;
 }
-.tab .accordionContent {
+.tab .tabContent {
   position: relative;
-  height: 80%;
+  text-align: left;
+  margin: 5%;
+  font-size: 12;
   transform: translateY(100%);
 }
 .slideInBottom {
-  animation: slide-in-bottom 0.4s linear 1 0.2s both;
+  animation: slide-in-bottom 1s ease-in-out 1 0s both;
+}
+.slideOutBottom {
+  animation: slide-out-bottom 0.4s ease-in-out 1 0s both;
 }
 .slideInLeft {
   animation: slide-in-left 0.4s linear 1 0.2s both;
@@ -133,6 +138,16 @@ h3,
   to {
     -webkit-transform: translateY(0%);
     transform: translateY(0%);
+  }
+}
+@keyframes slide-out-bottom {
+  from {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+  to {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
   }
 }
 @keyframes slide-in-left {

@@ -78,7 +78,6 @@ angular.module('accordion',[])
         }
      
     },
-
     template: '<div class="tab" ng-class="{active:tabCtrl.isOpened}" ng-click=tabCtrl.toggleTab() ng-style="tabCtrl.tabStyle">'
      +         ' <div class="innertab">'
      +           ' <div class="titlebar">'
@@ -93,13 +92,31 @@ angular.module('accordion',[])
   }
   
 })
-.directive('accordionContent', function(){
+.directive('tabContent', function(){
     return {
         restrict:'EA',
         require:'^accordionTab',
         replace:true,
         transclude:true,
-        template:'<div class="accordionContent" ng-class={slideInBottom:isOpened} ng-transclude></div>',
+        controllerAs:'contentCtrl',
+        controller:function(){
+            this.isParentOpened;
+            this.isParentClosed;
+        },
+        link:function(scope,element,attrs,tabCtrl){
+            scope.$parent.$watch('tabCtrl.isOpened', function(value){
+                if(value){
+                scope.contentCtrl.isParentOpened = true;     
+                scope.contentCtrl.isParentClosed = false;
+                  }
+                else{
+                    scope.contentCtrl.isParentOpened = false;
+                     scope.contentCtrl.isParentClosed = true;
+                }
+            })
+           
+        },
+        template:'<div class="tabContent" ng-class="{slideInBottom:contentCtrl.isParentOpened, slideOutBottom:contentCtrl.isParentClosed}" ng-transclude></div>',
     }
 })
 
