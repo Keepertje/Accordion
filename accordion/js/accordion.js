@@ -8,12 +8,12 @@ angular.module('accordion',[])
   this.openTab = function(tabToOpen){
         let closedTabHeight = 100 / (tabs.length + 2);
         let openTabHeight   = closedTabHeight * 3;
-  
-        angular.forEach(tabs,function(tab){
-        if(tab.isOpened){
-            tab.isClosed=true;
-            tab.isOpened = false;  
-            tab.tabStyle = {"background-color":tab.color, "height":closedTabHeight + '%'}; 
+       angular.forEach(tabs,function(tab){
+           
+        if(tab.tabCtrl.isOpened){ 
+            tab.tabCtrl.isClosed=true;
+            tab.tabCtrl.isOpened = false;  
+            tab.tabCtrl.tabStyle = {"background-color":tab.tabCtrl.color, "height":closedTabHeight + '%'}; 
         }
         });
         tabToOpen.isOpened=true;
@@ -23,17 +23,14 @@ angular.module('accordion',[])
   
    this.addTabs = function(tab) {
        
-         let closedTabHeight = 100 / ((this.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
-         console.log('closedheight: ' + closedTabHeight);
-        let openTabHeight   = closedTabHeight * 3;
-         console.log('openTabHeight: ' + openTabHeight);
-            if(tab.isOpened){
-                tab.tabStyle ={"background-color":tab.color,"height":openTabHeight + '%'}; 
+         let closedTabHeight = 100 / ((this.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"     
+         let openTabHeight   = closedTabHeight * 3;      
+            if(tab.tabCtrl.isOpened){
+                tab.tabCtrl.tabStyle ={"background-color":tab.tabCtrl.color,"height":openTabHeight + '%'}; 
             }
             else{
-              tab.tabStyle ={"background-color":tab.color,"height":closedTabHeight + '%'}; 
-            }
-            console.log('addtab ' + tabs.length);
+              tab.tabCtrl.tabStyle ={"background-color":tab.tabCtrl.color,"height":closedTabHeight + '%'}; 
+            }      
             tabs.push(tab);   
    } 
 }) 
@@ -44,9 +41,7 @@ angular.module('accordion',[])
      width:'@',
             height:'@',
             totalTabs:'@'},
-    scope: {
-           
-           },
+    scope: {   },
     transclude:true, 
     controller:'accordionController',
     controllerAs: 'accordionCtrl',
@@ -56,34 +51,39 @@ angular.module('accordion',[])
 .directive('accordionTab', function() {
   return {
     restrict: 'EA',
-    require:'^accordion',
+    require:"^accordion",
     replace:true,
-    scope:{  
-  },
-    bindToController:{
-    itemTitle: '@',
-        initiallyOpen:'=',
-        color:'@'},
-    controller: function(){
-        this.isOpened = (this.initiallyOpen) ?true:false;
-        this.tabStyle = {"background-color":this.color};
-        var accordionController = controllers[0];
-        accordionController.addTabs(this);
-        this.toggleTab = function(){
-            if(!this.isOpened){
-            accordionController.openTab(this);
-            }
-        }
+    scope:{initiallyOpen:'=' },
+    bindToController:{  
+        itemTitle: '@',
+        color:'@'
+       },
+    controller: function(){       
+        this.isOpened; //so I know I have this one
+        this.tabStyle = {"background-color":this.color};   
+           
+        
     },
     controllerAs: 'tabCtrl',
     transclude:true,   
-    
-    template: '<div class="tab" ng-class="{active:isOpened}" ng-click=toggleTab() ng-style="tabStyle">'
+    link:function(scope,element,attrs,parentCtrl){
+   
+        scope.tabCtrl.isOpened = !!scope.initiallyOpen;
+        parentCtrl.addTabs(scope);
+        scope.tabCtrl.toggleTab = function(){  
+            if(!scope.tabCtrl.isOpened){       
+                parentCtrl.openTab(this);
+            }
+            
+        }
+     
+    },
+    template: '<div class="tab" ng-class="{active:tabCtrl.isOpened}" ng-click=tabCtrl.toggleTab() ng-style="tabCtrl.tabStyle">'
      +         ' <div class="innertab">'
      +           ' <div class="titlebar">'
-     +              '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'
-     +              '<p>{{itemTitle}}</p>'
-     +              '<span class="lineright" ng-class="{slideInRight:isOpened,slideOutRight:isClosed}"></span>'
+     +              '<span class="lineleft" ng-class="{ slideInLeft:tabCtrl.isOpened,slideOutLeft:tabCtrl.isClosed}"></span>'
+     +              '<p>{{tabCtrl.itemTitle}}</p>'
+     +              '<span class="lineright" ng-class="{slideInRight:tabCtrl.isOpened,slideOutRight:tabCtrl.isClosed}"></span>'
      +          ' <div class="text" ng-transclude></div>'
      +       '</div>'
      +  ' </div>'
