@@ -42,11 +42,6 @@ Use it in your html
 
 ## Have-to's
 
-Set the number of tabs with the total-tabs tag. (shouldn't be necessary in the future)
-```html
- <accordion  total-tabs="6">
- ```
- 
  Set the item-title of a tab with the item-title tag:
 
 ```html
@@ -86,7 +81,6 @@ Pick the tab you want to be opened initially by setting the initially-opened tag
   </accordion-tab>
  ```
 ## TODO
-* Height for tabs has now to be set manually in css everytime you add/delete tabs, this should be done automatically
 * Use tab.html template instead of setting the html in the directive?
 * Someday: Angular2 of course!
 

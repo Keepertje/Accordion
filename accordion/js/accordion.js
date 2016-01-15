@@ -22,9 +22,20 @@ angular.module('accordion',[])
   };
   
    this.addTabs = function(tab) {
+         var totaltabsFornow = tabs.length+1; //+1 for the one you will add.
+         let closedTabHeight = 100 / ((totaltabsFornow*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"     
+         let openTabHeight   = closedTabHeight * 3;   
+              angular.forEach(tabs,function(tab){
+                    if(tab.tabCtrl.isOpened){ 
 
-         let closedTabHeight = 100 / ((this.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"     
-         let openTabHeight   = closedTabHeight * 3;      
+                        tab.tabCtrl.tabStyle = {"background-color":tab.tabCtrl.color, "height":openTabHeight + '%'}; 
+                    }
+                    else{
+                        tab.tabCtrl.tabStyle = {"background-color":tab.tabCtrl.color, "height":closedTabHeight + '%'}; 
+                    }
+              });
+
+           
             if(tab.tabCtrl.isOpened){
                 tab.tabCtrl.tabStyle ={"background-color":tab.tabCtrl.color,"height":openTabHeight + '%'}; 
             }
@@ -39,8 +50,7 @@ angular.module('accordion',[])
     restrict:'EA',
     bindToController: {
      width:'@',
-            height:'@',
-            totalTabs:'@'},
+            height:'@'},
     scope: {   },
     transclude:true, 
     controller:'accordionController',
