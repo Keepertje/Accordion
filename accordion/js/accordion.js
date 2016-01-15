@@ -23,17 +23,15 @@ angular.module('accordion',[])
   
    this.addTabs = function(tab) {
        
-         let closedTabHeight = 100 / (($scope.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
-         console.log('closedheight: ' + closedTabHeight);
-        let openTabHeight   = closedTabHeight * 3;
-         console.log('openTabHeight: ' + openTabHeight);
+           let closedTabHeight = 100 / (($scope.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
+           let openTabHeight   = closedTabHeight * 3;     
             if(tab.isOpened){
                 tab.tabStyle ={"background-color":tab.color,"height":openTabHeight + '%'}; 
             }
             else{
               tab.tabStyle ={"background-color":tab.color,"height":closedTabHeight + '%'}; 
             }
-            console.log('addtab ' + tabs.length);
+        
             tabs.push(tab);   
    } 
 }]) 
@@ -81,12 +79,21 @@ angular.module('accordion',[])
      +           '<span class="lineleft" ng-class="{ slideInLeft:isOpened,slideOutLeft:isClosed}"></span>'
      +          ' <p>{{itemTitle}}</p>'
      +           '<span class="lineright" ng-class="{slideInRight:isOpened,slideOutRight:isClosed}"></span>'
-     +          ' <div class="text" ng-transclude></div>'
-     +       '</div>'
+     +           '</div>'
+     + ' <div ng-transclude></div>'
      +  ' </div>'
      + '</div>'
     //'./template/tab.html'
   }
   
+})
+.directive('accordionContent', function(){
+    return {
+        restrict:'EA',
+        require:'^accordionTab',
+        replace:true,
+        transclude:true,
+        template:'<div class="accordionContent" ng-class={slideInBottom:isOpened} ng-transclude></div>',
+    }
 })
 

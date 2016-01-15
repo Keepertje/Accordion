@@ -113,12 +113,18 @@ h3,
   box-shadow:0 5px 10px 3px rgba(0,0,0,1);
   &:hover{
      box-shadow:0 5px 15px 5px rgba(0,0,0,1);
-    
-    height:20%;
 
+    }
+    .accordionContent{
+     position:relative;
+     height:80%;
+     transform:translateY(100%);
     }
 }
 
+.slideInBottom{
+    animation:slide-in-bottom 0.4s linear 1 .2s both;
+}
 .slideInLeft{
   animation:slide-in-left 0.4s linear 1 .2s both;
 }
@@ -130,6 +136,19 @@ h3,
 }
 .slideOutRight{
   animation:slide-out-right 0.4s linear 1 0s both;
+}
+
+@keyframes slide-in-bottom{
+    
+    from {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%)
+  }
+  to {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%)
+  
+  }
 }
 
 @keyframes slide-in-left{
