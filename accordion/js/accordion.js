@@ -1,32 +1,39 @@
+"use strict";
+
 angular.module('accordion',[])
 .controller('accordionController',['$scope', function($scope){
   var tabs = [];
   $scope.size = {"width":$scope.width,
-                 "height":$scope.height};
+                 "height":$scope.height};                  
   this.openTab = function(tabToOpen){
- 
-  var closedTabHeight = 100 / (tabs.length + 2);
-  var openTabHeight   = closedTabHeight * 3;
+        let closedTabHeight = 100 / (tabs.length + 2);
+        let openTabHeight   = closedTabHeight * 3;
   
-    console.log(closedTabHeight);
-      console.log(openTabHeight);
-      
-     angular.forEach(tabs,function(tab){
-       if(tab.isOpened){
-         tab.isClosed=true;
-         tab.isOpened = false;  
-         tab.tabStyle = {"background-color":tab.color, "height":closedTabHeight + '%'}; 
-       }
-     });
-     tabToOpen.isOpened=true;
-     tabToOpen.tabStyle ={"background-color":tabToOpen.color,"height":openTabHeight + '%'}; 
-     tabToOpen.isClosed=false;
+        angular.forEach(tabs,function(tab){
+        if(tab.isOpened){
+            tab.isClosed=true;
+            tab.isOpened = false;  
+            tab.tabStyle = {"background-color":tab.color, "height":closedTabHeight + '%'}; 
+        }
+        });
+        tabToOpen.isOpened=true;
+        tabToOpen.tabStyle ={"background-color":tabToOpen.color,"height":openTabHeight + '%'}; 
+        tabToOpen.isClosed=false;
   };
   
    this.addTabs = function(tab) {
+       
+         let closedTabHeight = 100 / (($scope.totalTabs*1) + 2); //*1 otherwise it takes string 6 + 2 = "62"
+         console.log('closedheight: ' + closedTabHeight);
+        let openTabHeight   = closedTabHeight * 3;
+         console.log('openTabHeight: ' + openTabHeight);
             if(tab.isOpened){
-                tab.tabStyle ={"background-color":tab.color,"height":30 + '%'}; 
+                tab.tabStyle ={"background-color":tab.color,"height":openTabHeight + '%'}; 
             }
+            else{
+              tab.tabStyle ={"background-color":tab.color,"height":closedTabHeight + '%'}; 
+            }
+            console.log('addtab ' + tabs.length);
             tabs.push(tab);   
    } 
 }]) 
@@ -35,7 +42,8 @@ angular.module('accordion',[])
    restrict:'EA',
     scope: {
             width:'@',
-            height:'@'
+            height:'@',
+            totalTabs:'@'
            },
     transclude:true, 
     controller:'accordionController',

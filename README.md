@@ -27,7 +27,7 @@ Declare a dependency on the accordion module
 
 Use it in your html
 ```html
- <accordion width="340px" height="400px">
+ <accordion width="340px" height="400px" tab-size="6">
       <!-- TODO: scale tabs based on the accordion size -->
     <accordion-tab item-title="Some stuff"  initially-open="true"
                    color="#FFFFFF">
@@ -39,15 +39,29 @@ Use it in your html
       
     </accordion>   
 ```
+
+## Have-to's
+
+Set the number of tabs with the total-tabs tag. (shouldn't be necessary in the future)
+```html
+ <accordion  total-tabs="6">
+ ```
+ 
+ Set the item-title of a tab with the item-title tag:
+
+```html
+      <accordion-tab item-title="Some stuff"
+                     color="#B2EBF2">
+     </accordion-tab>
+```
 ## Options
 
 Set the size of the accordion with width and height tags (default width="340px" height="400px")
 ```html
- <accordion width="340px" height="400px">
+ <accordion width="340px" height="400px" total-tabs="6">
  ```
 
 You can set the color of the tabs with the color tag.
-You can set the title of a tab with the item-title tag.
 ```html
       <accordion-tab item-title="Some stuff"
                      color="#B2EBF2">
